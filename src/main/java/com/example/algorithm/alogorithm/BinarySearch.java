@@ -16,15 +16,39 @@ public class BinarySearch {
      */
     public int binarySearch(int[] nums, int n, int value) {
         int low = 0;
-        int high = 1;
+        int high = n - 1;
         while (low <= high) {
-            int mid = low + (high - low) >> 2;
+            int mid = low + (high - low) >> 1;
             if (nums[mid] == value) {
                 return mid;
             } else if (nums[mid] < value) {
                 low = mid + 1;
             } else {
                 high = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 查找第一个大于等于值的元素
+     *
+     * @param nums
+     * @param n
+     * @param value
+     * @return
+     */
+    public int searchFirstMax(int[] nums, int n, int value) {
+        int low = 0;
+        int high = n - 1;
+        while (low <= high) {
+            int mid = low + (high - low) >> 1;
+            if (nums[mid] >= value) {
+                if (mid == 0 || nums[mid - 1] < value) {
+                    return mid;
+                } else {
+                    low = mid + 1;
+                }
             }
         }
         return -1;
