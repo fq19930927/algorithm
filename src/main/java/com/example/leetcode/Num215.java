@@ -3,6 +3,7 @@
  */
 package com.example.leetcode;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -14,7 +15,7 @@ public class Num215 {
     public int findKthLargest(int[] nums, int k) {
         //大顶堆
         PriorityQueue<Integer> heap =
-                new PriorityQueue<Integer>((n1, n2) -> n1 - n2);
+                new PriorityQueue<>(Comparator.comparingInt(n -> n));
 
         for (int n : nums) {
             heap.add(n);
