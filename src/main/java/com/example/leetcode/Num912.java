@@ -1,6 +1,7 @@
 package com.example.leetcode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author fuqiang
@@ -9,15 +10,10 @@ import java.util.*;
 public class Num912 {
 
     public List<Integer> sortArray(int[] nums) {
-
-        if (null == nums || nums.length == 0) {
+        if (null == nums || nums.length == 0 ) {
             return null;
         }
-
-        int[] temp = new int[nums.length];
-
-        mergeSort(0, nums.length - 1, nums, temp);
-
+        mergeSort(0, nums.length - 1, nums, new int[nums.length]);
         List<Integer> list = new ArrayList<>();
         for (int num : nums) {
             list.add(num);
@@ -25,32 +21,20 @@ public class Num912 {
         return list;
     }
 
+
     private void mergeSort(int left, int right, int[] nums, int[] temp) {
-
         if (left < right) {
-            int mid = left + (right - left) / 2;
-
+            int mid = left + (right - left)/2;
             mergeSort(left, mid, nums, temp);
             mergeSort(mid + 1, right, nums, temp);
-
-            sort(left, mid, right, nums, temp);
+            merge(left, mid, right, nums, temp);
         }
-
     }
 
-    /**
-     * 归并
-     *
-     * @param left
-     * @param mid
-     * @param right
-     * @param nums
-     * @param temp
-     */
-    private void sort(int left, int mid, int right, int[] nums, int[] temp) {
 
-        int t = 0;
+    private void merge(int left, int mid, int right, int[] nums, int[] temp) {
         int i = left, j = mid + 1;
+        int t = 0;
 
         while (i <= mid && j <= right) {
             if (nums[i] <= nums[j]) {
@@ -72,7 +56,6 @@ public class Num912 {
         while (left <= right) {
             nums[left++] = temp[t++];
         }
-
     }
 
 
