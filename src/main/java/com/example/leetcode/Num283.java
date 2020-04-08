@@ -6,7 +6,7 @@ package com.example.leetcode;
  */
 public class Num283 {
 
-    public void moveZeroes(int[] nums) {
+    /*public void moveZeroes(int[] nums) {
         if (nums == null || nums.length <= 1) {
             return;
         }
@@ -28,5 +28,22 @@ public class Num283 {
         nums[i - 1] = num;
         nums[i] = 0;
         swapZero(nums, nums[i - 1], i - 1);
+    }*/
+
+    public void moveZeroes(int[] nums) {
+        if (nums == null || nums.length <= 1) {
+            return;
+        }
+        int index = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[index++] = nums[i];
+            }
+        }
+        if (index < nums.length) {
+            for (int i = index; i<nums.length;i++) {
+                nums[i] = 0;
+            }
+        }
     }
 }
