@@ -9,8 +9,14 @@ import java.util.List;
  */
 public class Num912 {
 
+    /**
+     * 归并排序
+     *
+     * @param nums
+     * @return
+     */
     public List<Integer> sortArray(int[] nums) {
-        if (null == nums || nums.length == 0 ) {
+        if (nums == null || nums.length == 0) {
             return null;
         }
         mergeSort(0, nums.length - 1, nums, new int[nums.length]);
@@ -21,21 +27,27 @@ public class Num912 {
         return list;
     }
 
-
     private void mergeSort(int left, int right, int[] nums, int[] temp) {
         if (left < right) {
-            int mid = left + (right - left)/2;
+            int mid = left + (right - left) / 2;
             mergeSort(left, mid, nums, temp);
             mergeSort(mid + 1, right, nums, temp);
-            merge(left, mid, right, nums, temp);
+            merge(mid, left, right, nums, temp);
         }
     }
 
-
-    private void merge(int left, int mid, int right, int[] nums, int[] temp) {
+    /**
+     * 归并
+     *
+     * @param mid
+     * @param left
+     * @param right
+     * @param nums
+     * @param temp
+     */
+    private void merge(int mid, int left, int right, int[] nums, int[] temp) {
         int i = left, j = mid + 1;
         int t = 0;
-
         while (i <= mid && j <= right) {
             if (nums[i] <= nums[j]) {
                 temp[t++] = nums[i++];
@@ -43,15 +55,12 @@ public class Num912 {
                 temp[t++] = nums[j++];
             }
         }
-
         while (i <= mid) {
             temp[t++] = nums[i++];
         }
-
         while (j <= right) {
             temp[t++] = nums[j++];
         }
-
         t = 0;
         while (left <= right) {
             nums[left++] = temp[t++];

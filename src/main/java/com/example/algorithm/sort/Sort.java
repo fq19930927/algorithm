@@ -64,19 +64,53 @@ public class Sort {
     }
 
     private static void sort(int[] a, int left, int right, int[] tmp) {
-        if (left < right) {
+        /*if (left < right) {
             int mid = (left + right) / 2;
             // 左边归并
             sort(a, left, mid, tmp);
             // 右边归并
             sort(a, mid + 1, right, tmp);
             merge(a, left, right, mid, tmp);
+        }*/
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+            //左半边排序
+            sort(a, left, mid, tmp);
+            //右半边排序
+            sort(a, mid + 1, right, tmp);
+            merge(a, left, right, mid, tmp);
         }
     }
 
     private static void merge(int[] a, int left, int right, int mid, int[] tmp) {
+        int i = left;//左指针
+        int j = mid + 1;//右指针
+        int t = 0;//临时数组指针
+        //两边都有数据
+        while (i <= mid && j <= right) {
+            if (a[i] <= a[j]) {
+                tmp[t++] = a[i++];
+            } else {
+                tmp[t++] = a[j++];
+            }
+        }
+        //只有左边有数据
+        while (i <= mid) {
+            tmp[i++] = a[i++];
+        }
+        //只有右边有数据
+        while (j <= right) {
+            tmp[j++] = a[j++];
+        }
+        t = 0;
+        while (left <= right) {
+            a[left++] = tmp[t++];
+        }
+    }
+
+   /* private static void merge(int[] a, int left, int right, int mid, int[] tmp) {
         int i = left;// 左指针序列
-        int j = mid + 1;// 右指针序列
+        int j = mid + 1;// 右指针序 列
         int t = 0;// 临时数组指针
         // 左右两边都有数据
         while (i <= mid && j <= right) {
@@ -99,7 +133,7 @@ public class Sort {
         while (left <= right) {
             a[left++] = tmp[t++];
         }
-    }
+    }*/
 
     /**
      * 快速排序
@@ -113,8 +147,9 @@ public class Sort {
 
 
     private static void quick(int[] arr, int top, int tail) {
-        if (top >= tail)
+        if (top >= tail) {
             return;
+        }
         int mid = arr[tail];
         int left = top, right = tail - 1;
         while (left < right) {
