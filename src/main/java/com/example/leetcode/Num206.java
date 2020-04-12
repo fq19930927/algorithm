@@ -3,6 +3,8 @@
  */
 package com.example.leetcode;
 
+import java.util.List;
+
 /**
  * @author liuxing
  * @version Num206, v0.1 2020/2/9 7:58 下午
@@ -11,18 +13,18 @@ public class Num206 {
 
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) {
-            return head;
+            return null;
         }
+        ListNode prev = null;
         ListNode curr = head;
-        ListNode pre = null;
-        while (curr.next != null) {
+        while (curr != null) {
             ListNode temp = curr.next;
-            curr.next = pre;
-            pre = curr;
+            curr.next = prev;
+            prev = curr;
             curr = temp;
         }
-        curr.next = pre;
-        return curr;
+        return prev;
+
     }
 
     public class ListNode {
