@@ -1,8 +1,6 @@
 package com.example.dataStructure;
 
 
-import java.text.DateFormat;
-
 /**
  * @author fuqiang
  * @version Array, v0.1 2020/4/17 9:41 下午
@@ -39,17 +37,31 @@ public class Array<E> {
     }
 
     public void add(int index, E e) {
-        if (size == data.length) {
-            throw new IllegalArgumentException("Add failed. Array is full");
-        }
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Add failed. Index error");
         }
+        if (size == data.length) {
+            resize(2 * data.length);
+        }
+
         for (int i = size - 1; i >= index; i--) {
             data[i + 1] = data[i];
         }
         data[index] = e;
         size++;
+    }
+
+    /**
+     * 扩容
+     *
+     * @param newCapacity
+     */
+    private void resize(int newCapacity) {
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
     }
 
     @Override
@@ -107,6 +119,9 @@ public class Array<E> {
         }
         size--;
         data[size] = null;
+        if (size <= data.length / 2) {
+            resize(data.length / 2);
+        }
         return ret;
     }
 
@@ -129,12 +144,12 @@ public class Array<E> {
 
 
     public static void main(String[] args) {
-        Array<Object> arr = new Array<>(20);
-        for (int i = 0; i < 10; i++) {
+        Array<Integer> arr = new Array<>(20);
+        for (int i = 0; i < 11; i++) {
             arr.addLast(i);
         }
         System.out.println(arr);
-        arr.remove(2);
+        arr.removeFirst();
         System.out.println(arr);
     }
 }
