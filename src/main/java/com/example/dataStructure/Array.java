@@ -79,11 +79,23 @@ public class Array<E> {
         return sb.toString();
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     public E get(int index) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Get failed. Index error");
         }
         return data[index];
+    }
+
+    public E getFirst() {
+        return get(0);
+    }
+
+    public E getLast() {
+        return get(size - 1);
     }
 
     public void removeElement(E e) {

@@ -3,6 +3,8 @@
  */
 package com.example.leetcode;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 import java.util.Stack;
 
 /**
@@ -12,27 +14,30 @@ import java.util.Stack;
 public class Num20 {
 
     public boolean isValid(String s) {
-        Stack<Character> stack = new Stack();
-        char[] charArray = s.toCharArray();
-        for (int i = 0; i < charArray.length; i++) {
-            if ('(' == charArray[i] || '{' == charArray[i] || '[' == charArray[i]) {
-                stack.push(charArray[i]);
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i<s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(' || c =='[' || c == '{') {
+                stack.push(c);
             } else {
                 if (stack.isEmpty()) {
                     return false;
                 }
-                char pop = stack.pop();
-                if (charArray[i] == ')' && pop != '(') {
+                char top = stack.pop();
+                if (c ==')' && top != '(') {
                     return false;
                 }
-                if (charArray[i] == ']' && pop != '[') {
+                if (c ==']' && top != '[') {
                     return false;
                 }
-                if (charArray[i] == '}' && pop != '{') {
+                if (c =='}' && top != '{') {
                     return false;
                 }
             }
         }
-        return stack.isEmpty();
+        if (stack.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 }
