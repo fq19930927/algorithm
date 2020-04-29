@@ -1,5 +1,7 @@
 package com.example.dataStructure;
 
+import java.util.Stack;
+
 /**
  * @author fuqiang
  * @version BST, v0.1 2020/4/27 4:15 下午
@@ -79,6 +81,26 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    /**
+     * 非递归前序遍历(深度优先遍历)
+     */
+    public void preOrderNR() {
+        Stack<Node> stack = new Stack();
+        if (root != null) {
+            stack.push(root);
+        }
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+        }
     }
 
     /**
