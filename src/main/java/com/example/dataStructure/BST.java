@@ -1,5 +1,7 @@
 package com.example.dataStructure;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -135,17 +137,117 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
     }
 
+    /**
+     * 层序遍历
+     */
+    public void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node cur = queue.remove();
+            System.out.println(cur.e);
+            if (cur.left != null) {
+                queue.add(cur.left);
+            }
+            if (cur.right != null) {
+                queue.add(cur.right);
+            }
+        }
+    }
+
+    /**
+     * 寻找二分搜索树的最小元素
+     *
+     * @return
+     */
+    public E minimum() {
+        if (root == null) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        return minimum(root).e;
+    }
+
+    private Node minimum(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return minimum(node.left);
+    }
+
+    /**
+     * 寻找二分搜索树的最大元素
+     *
+     * @return
+     */
+    public E maximun() {
+        if (root == null) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        return maximun(root).e;
+    }
+
+    private Node maximun(Node node) {
+        if (node.right == null) {
+            return node;
+        }
+        return maximun(node.right);
+    }
+
+    /**
+     * 二分搜索树删除最小值所在节点，返回最小值
+     *
+     * @return
+     */
+    public E removeMin() {
+        E ret = minimum();
+        root = removeMin(root);
+        return ret;
+    }
+
+    private Node removeMin(Node node) {
+        if (node.left == null) {
+            Node right = node.right;
+            node.right = null;
+            size--;
+            return right;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    /**
+     * 二分搜索树删除最大值所在节点，返回最大值
+     *
+     * @return
+     */
+    public E removeMax() {
+        E ret = maximun();
+        root = removeMax(root);
+        return ret;
+    }
+
+    private Node removeMax(Node node) {
+        if (node.right == null) {
+            Node left = node.left;
+            size--;
+            node.left = null;
+            return left;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder res = new StringBuilder();
         generateString(root, 0, res);
         return res.toString();
     }
 
     // 生成以node为根节点，深度为depth的描述二叉树的字符串
-    private void generateString(Node node, int depth, StringBuilder res){
+    private void generateString(Node node, int depth, StringBuilder res) {
 
-        if(node == null){
+        if (node == null) {
             res.append(generateDepthString(depth)).append("null\n");
             return;
         }
@@ -155,9 +257,9 @@ public class BST<E extends Comparable<E>> {
         generateString(node.right, depth + 1, res);
     }
 
-    private String generateDepthString(int depth){
+    private String generateDepthString(int depth) {
         StringBuilder res = new StringBuilder();
-        for(int i = 0 ; i < depth ; i ++) {
+        for (int i = 0; i < depth; i++) {
             res.append("--");
         }
         return res.toString();
