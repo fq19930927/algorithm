@@ -126,6 +126,21 @@ public class LinkedList<E> {
         return temp.e;
     }
 
+    public void removeElement(E e) {
+        Node prev = dummyHead;
+        while (prev.next != null) {
+            if (prev.next.equals(e)) {
+                break;
+            }
+            prev = prev.next;
+        }
+        if (prev.next != null) {
+            Node del = prev.next;
+            prev.next = del.next;
+            del.next = null;
+        }
+    }
+
     public E removeFirst() {
         return remove(0);
     }
