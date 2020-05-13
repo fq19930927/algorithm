@@ -154,6 +154,21 @@ public class Array<E> {
         return -1;
     }
 
+    /**
+     * 交互数据元素
+     *
+     * @param i
+     * @param j
+     */
+    public void swap(int i, int j) {
+        if (i < 0 || i >= size || j < 0 || j >= size) {
+            throw new IllegalArgumentException("swap index error");
+        }
+        E e = data[i];
+        data[i] = data[j];
+        data[j] = e;
+    }
+
 
     public static void main(String[] args) {
         Array<Integer> arr = new Array<>(20);
