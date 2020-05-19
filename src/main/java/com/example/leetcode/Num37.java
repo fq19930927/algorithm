@@ -6,5 +6,7 @@ package com.example.leetcode;
  */
 public class Num37 {
 
+    public void solveSudoku(char[][] board) {
 
+    }
 }
